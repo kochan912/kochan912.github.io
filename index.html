@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自己紹介</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fff;
+      color: #000;
+      overflow-x: hidden;
+    }
+    section {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4em 2em;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: all 1s ease;
+      text-align: center;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    h1, h2, p {
+      margin: 0.5em 0;
+    }
+    .sns-icons img {
+      width: 32px;
+      height: 32px;
+      margin: 0 10px;
+      filter: grayscale(100%);
+    }
+    .section-img {
+      max-width: 100%;
+      height: auto;
+      margin: 2em 0;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <section id="name">
+    <h1>名前：山田 太郎</h1>
+    <img src="images/profile.jpg" alt="プロフィール写真" class="section-img">
+  </section>
+
+  <section id="location">
+    <h2>所属：和歌山 ⇒ 長野 ⇒ 東京</h2>
+    <img src="images/journey.jpg" alt="移動経路のイメージ" class="section-img">
+  </section>
+
+  <section id="contact">
+    <h2>連絡先</h2>
+    <p>Email: example@example.com</p>
+    <img src="images/contact.jpg" alt="コンタクトイメージ" class="section-img">
+  </section>
+
+  <section id="sns">
+    <h2>SNS</h2>
+    <div class="sns-icons">
+      <img src="twitter-icon.png" alt="Twitter">
+      <img src="github-icon.png" alt="GitHub">
+    </div>
+    <img src="images/social.jpg" alt="SNSのイメージ" class="section-img">
+  </section>
+
+  <section id="hobbies">
+    <h2>趣味</h2>
+    <p>登山、読書、旅行、映像制作</p>
+    <img src="images/hobbies.jpg" alt="趣味のイメージ" class="section-img">
+  </section>
+
+  <section id="research">
+    <h2>研究内容</h2>
+    <p>機械学習を用いたレーザー加工構造の予測モデル開発および逆解析による条件探索</p>
+    <img src="images/research.jpg" alt="研究イメージ" class="section-img">
+  </section>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+    const options = {
+      threshold: 0.2
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>

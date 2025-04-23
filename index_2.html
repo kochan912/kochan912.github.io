@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自己紹介</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+      background-color: #111;
+      color: #fff;
+      scroll-behavior: smooth;
+    }
+    section {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 10vh 5vw;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 1.2s ease, transform 1.2s ease;
+    }
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.3;
+      z-index: 0;
+      animation: backgroundFade 15s ease-in-out infinite alternate;
+    }
+    @keyframes backgroundFade {
+      0% { filter: brightness(1); }
+      100% { filter: brightness(0.7); }
+    }
+    section h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease forwards;
+    }
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease forwards;
+    }
+    section p {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      z-index: 2;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1s ease forwards;
+    }
+    section.visible h1 {
+      animation-delay: 0.2s;
+    }
+    section.visible h2 {
+      animation-delay: 0.4s;
+    }
+    section.visible p {
+      animation-delay: 0.6s;
+    }
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    #name::before {
+      background-image: url('images/profile.jpg');
+    }
+    #location::before {
+      background-image: url('images/journey.jpg');
+    }
+    #contact::before {
+      background-image: url('images/contact.jpg');
+    }
+    #sns::before {
+      background-image: url('images/social.jpg');
+    }
+    #hobbies::before {
+      background-image: url('images/hobbies.jpg');
+    }
+    #research::before {
+      background-image: url('images/research.jpg');
+    }
+    .sns-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 1rem;
+      z-index: 2;
+    }
+    .sns-icons img {
+      width: 40px;
+      height: 40px;
+      filter: invert(1);
+      transition: transform 0.3s ease;
+    }
+    .sns-icons img:hover {
+      transform: scale(1.2);
+    }
+    @media screen and (max-width: 768px) {
+      section h1 {
+        font-size: 2rem;
+      }
+      section h2 {
+        font-size: 1.5rem;
+      }
+      section p {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <section id="name">
+    <h1>名前：松村　晃汰</h1>
+  </section>
+
+  <section id="location">
+    <h2>所属：東京大学大学院工学系研究科バイオエンジニアリング専攻</h2>
+  </section>
+
+  <section id="contact">
+    <h2>連絡先</h2>
+    <p>Email: matsu20010912@gmail.com</p>
+  </section>
+
+  <section id="sns">
+    <h2>SNS</h2>
+    <div class="sns-icons">
+      <img src="twitter-icon.png" alt="Twitter">
+      <img src="github-icon.png" alt="GitHub">
+    </div>
+  </section>
+
+  <section id="hobbies">
+    <h2>趣味</h2>
+    <p>テニス・旅行・スノーボード</p>
+  </section>
+
+  <section id="research">
+    <h2>研究内容</h2>
+    <p>(学部時代)機械学習を用いたレーザー加工構造の予測モデル開発および逆解析による条件探索</p>
+    <p>(修士)SEIRA/SERS を用いた超高感度分子検出センサの創出に関する研究</p>
+  </section>
+
+  <script>
+    const sections = document.querySelectorAll('section');
+    const options = {
+      threshold: 0.1
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, options);
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+</body>
+</html>
